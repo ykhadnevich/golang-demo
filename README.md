@@ -9,8 +9,8 @@ chmod +x golang-demo
 
 ## Preconditions
 
-1. Install and configure postresql db
-2. Run schema generation from file `db_schema.sql`
+1. Install and configure PostreSQL db
+2. Create schema from file `db_schema.sql`
 
 ## Start program
 
