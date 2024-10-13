@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  silly-demo:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app  # Bind mount for hot-reloading
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=mydb
+    depends_on:
+      - postgres
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Add your Nginx config if needed
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistent volume for PostgreSQL
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+
+volumes:
+  postgres_data:
